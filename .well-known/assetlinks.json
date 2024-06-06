@@ -1,0 +1,12 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.unity3d.player",
+        "sha256_cert_fingerprints": [
+          "CA:87:19:CD:43:21:0E:B3:F9:E2:E0:CB:74:BB:12:AD:A1:63:95:BE:A7:66:D4:D0:48:77:C8:57:9B:F8:75:CD"
+        ]
+      }
+    }
+  ]
