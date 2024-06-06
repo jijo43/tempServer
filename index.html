@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open App</title>
+    <script>
+        function openApp() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var sceneName = urlParams.get('sceneName');
+            var playerName = urlParams.get('playerName');
+            var roomId = urlParams.get('roomId');
+
+            var deepLink = 'gatch://tictactoe?ServerConnection#' + playerName + '&' + roomId + '&scene=' + sceneName;
+
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            var isAndroid = /android/i.test(userAgent);
+            var isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
+            function redirectToAppStore() {
+                console.log("Redirecting to app store...");
+                console.log("User Agent:", userAgent);
+                if (isiOS) {
+                    console.log("Opening App Store for iOS...");
+                    window.location.href = 'https://apps.apple.com/us/app/keynote/id361285480'; // Replace with your app's App Store URL
+                } else if (isAndroid) {
+                    console.log("Opening Google Play Store for Android...");
+                    window.location.href = 'market://details?id=com.bandainamcoent.dblegends_ww'; // Use market:// URI scheme for Android 
+                } else {
+                    console.log("Device not recognized. Redirecting to fallback Play Store URL...");
+                    window.location.href = 'https://play.google.com/store/apps/details?id=com.nflystudio.InfiniteStaircase&pcampaignid=merch_published_cluster_promotion_battlestar_browse_all_games&hl=en'; // Replace with your fallback Play Store URL
+                }
+            }
+
+            if (sceneName) {
+                if (isiOS || isAndroid) {
+                    console.log("Attempting to open app with deep link...");
+                    console.log("User Agent:", userAgent);
+                    // Try opening the app with the deep link
+                    window.location.href = deepLink;
+                    setTimeout(function() {
+                        console.log("Checking if app was opened successfully...");
+                        console.log("User Agent:", userAgent);
+                        // If the app is not installed, redirect to the app store
+                        redirectToAppStore();
+                    }, 1500); // Adjust timeout as necessary
+                } else {
+                    console.log("Device not supported. Redirecting to app store...");
+                    console.log("User Agent:", userAgent);
+                    redirectToAppStore(); // Redirect to the app store if the device is not supported
+                }
+            } else {
+                console.log("Scene name parameter not provided. Redirecting to app store...");
+                console.log("User Agent:", userAgent);
+                redirectToAppStore(); // Redirect to the app store if sceneName parameter is not provided
+            }
+        }
+        // Clear browser cache
+    setTimeout(function() {
+        console.log("Clearing browser cache...");
+        window.location.reload(true);
+    }, 2000); // Adjust the delay as necessary
+    </script>
+</head>
+<body onload="openApp()">
+    <h1>Redirecting...</h1>
+</body>
+</html>
